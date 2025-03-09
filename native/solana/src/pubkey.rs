@@ -1,6 +1,6 @@
 use super::signature::KeypairWrapper;
 use rustler::{resource_impl, Resource, ResourceArc};
-use solana_sdk::pubkey::Pubkey;
+use solana_sdk::{pubkey::Pubkey, signer::Signer};
 
 pub struct PubKeyWrapper {
     pub keypair: Pubkey,
@@ -17,5 +17,5 @@ impl From<Pubkey> for PubKeyWrapper {
 
 #[rustler::nif]
 fn keypair_to_public_key(_keypair: ResourceArc<KeypairWrapper>) -> ResourceArc<PubKeyWrapper> {
-    todo!()
+    ResourceArc::new(PubKeyWrapper::from(_keypair.keypair.pubkey()))
 }
