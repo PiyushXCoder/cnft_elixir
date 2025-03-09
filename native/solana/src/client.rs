@@ -61,5 +61,3 @@ fn get_minimum_balance_for_rent_exemption(
         .get_minimum_balance_for_rent_exemption(_size)
         .map_err(|e| e.to_string())
 }
-
-rustler::init!("Elixir.SolanaClient");
