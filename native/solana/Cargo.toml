@@ -1,0 +1,15 @@
+[package]
+name = "solana"
+version = "0.1.0"
+authors = []
+edition = "2021"
+
+[lib]
+name = "solana"
+crate-type = ["cdylib"]
+
+[dependencies]
+rustler = "0.36.1"
+solana-client = "2.2.1"
+solana-program = "2.2.1"
+solana-sdk = "2.2.1"
