@@ -1,10 +1,9 @@
-use std::sync::RwLock;
+use std::{ops::Deref, sync::RwLock};
 
 use super::transaction::TransactionWrapper;
 use rustler::{resource_impl, Resource, ResourceArc};
 use solana_client::rpc_client::RpcClient;
 
-#[allow(dead_code)]
 pub struct RpcClientWrapper {
     pub client: RwLock<RpcClient>,
 }
@@ -28,6 +27,13 @@ impl From<RpcClient> for RpcClientWrapper {
     }
 }
 
+impl Deref for RpcClientWrapper {
+    type Target = RwLock<RpcClient>;
+    fn deref(&self) -> &Self::Target {
+        &self.client
+    }
+}
+
 #[rustler::nif]
 fn new_rpc_client(url: String) -> ResourceArc<RpcClientWrapper> {
     ResourceArc::new(RpcClientWrapper::new(url))
@@ -37,13 +43,23 @@ fn new_rpc_client(url: String) -> ResourceArc<RpcClientWrapper> {
 fn send_and_confirm_transaction(
     _client: ResourceArc<RpcClientWrapper>,
     _transaction: ResourceArc<TransactionWrapper>,
-) -> Result<u64, String> {
-    todo!()
+) -> Result<String, String> {
+    let client = _client.read().map_err(|e| e.to_string())?;
+    let signature = client
+        .send_and_confirm_transaction(&_transaction.transaction)
+        .map_err(|e| e.to_string())?;
+    Ok(signature.to_string())
 }
 
 #[rustler::nif]
-fn get_minimum_balance_for_rent_exemption(_size: usize) -> Result<u64, String> {
-    todo!()
+fn get_minimum_balance_for_rent_exemption(
+    _client: ResourceArc<RpcClientWrapper>,
+    _size: usize,
+) -> Result<u64, String> {
+    let client = _client.read().map_err(|e| e.to_string())?;
+    client
+        .get_minimum_balance_for_rent_exemption(_size)
+        .map_err(|e| e.to_string())
 }
 
 rustler::init!("Elixir.SolanaClient");
