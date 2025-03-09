@@ -1,5 +1,7 @@
 use std::{ops::Deref, sync::RwLock};
 
+use crate::hash::HashWrapper;
+
 use super::transaction::TransactionWrapper;
 use rustler::{resource_impl, Resource, ResourceArc};
 use solana_client::rpc_client::RpcClient;
@@ -60,4 +62,13 @@ fn get_minimum_balance_for_rent_exemption(
     client
         .get_minimum_balance_for_rent_exemption(_size)
         .map_err(|e| e.to_string())
+}
+
+#[rustler::nif]
+fn get_latest_blockhash(
+    _client: ResourceArc<RpcClientWrapper>,
+) -> Result<ResourceArc<HashWrapper>, String> {
+    let client = _client.read().map_err(|e| e.to_string())?;
+    let hash = client.get_latest_blockhash().map_err(|e| e.to_string())?;
+    Ok(ResourceArc::new(HashWrapper::from(hash)))
 }
