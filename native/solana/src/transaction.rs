@@ -2,7 +2,7 @@ use rustler::{resource_impl, Resource, ResourceArc};
 use solana_sdk::{instruction::Instruction, signature::Keypair, transaction::Transaction};
 
 use crate::{
-    hash::HashWrapper, instruction::InstructionWrapper, pubkey::PubKeyWrapper,
+    hash::HashWrapper, instruction::InstructionWrapper, pubkey::PubkeyWrapper,
     signature::KeypairWrapper,
 };
 
@@ -22,7 +22,7 @@ impl From<Transaction> for TransactionWrapper {
 #[rustler::nif]
 fn new_signed_transaction_with_payer(
     _instructions: Vec<ResourceArc<InstructionWrapper>>,
-    _payer: Option<ResourceArc<PubKeyWrapper>>,
+    _payer: Option<ResourceArc<PubkeyWrapper>>,
     _signing_keypair: Vec<ResourceArc<KeypairWrapper>>,
     _latest_blockhash: ResourceArc<HashWrapper>,
 ) -> ResourceArc<TransactionWrapper> {
@@ -35,7 +35,7 @@ fn new_signed_transaction_with_payer(
         .into_iter()
         .map(|keypair| keypair.keypair.insecure_clone())
         .collect::<Vec<Keypair>>();
-    let payer = _payer.map(|payer| payer.keypair);
+    let payer = _payer.map(|payer| payer.pubkey);
     let latest_blockhash = _latest_blockhash.hash;
     let transaction = Transaction::new_signed_with_payer(
         instructions,
