@@ -1,21 +1,6 @@
 # CnftElixir
 
-**TODO: Add description**
+An attempt to make nif for solana and mpl_bubblegum
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `cnft_elixir` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:cnft_elixir, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/cnft_elixir>.
+Check test to see how it works. Since it is still a proof of concept and experimental. It is not recommended to be used in production.
 
