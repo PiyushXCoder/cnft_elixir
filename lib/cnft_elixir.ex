@@ -29,4 +29,62 @@ defmodule Solana do
 
   # System Program
   def create_account_instruction(_from_pubkey, _to_pubkey, _lamports, _space, _owner), do: error()
+
+  # mpl_bubblegum
+  def cnft_create_tree_config_instruction(
+        _tree_config,
+        _merkle_tree,
+        _payer,
+        _tree_creator,
+        _max_buffer_size,
+        _max_depth
+      ),
+      do: error()
+
+  def cnft_mint_v1_instruction(
+        _merkle_tree,
+        _payer,
+        _leaf_delegate,
+        _leaf_owner,
+        _tree_config,
+        _tree_creator_or_delegate,
+        _metadata
+      ),
+      do: error()
+
+  def cnft_transfer_instruction(
+        _tree_config,
+        _leaf_owner,
+        _leaf_delegate,
+        _new_leaf_owner,
+        _merkle_tree
+      ),
+      do: error()
+
+  defmodule Collection do
+    defstruct verified: false, key: nil
+  end
+
+  defmodule Uses do
+    defstruct use_method: "", remaining: 0, total: 0
+  end
+
+  defmodule Creator do
+    defstruct address: nil, verified: false, share: 0
+  end
+
+  defmodule MetadataArgs do
+    defstruct name: "",
+              symbol: "",
+              uri: "",
+              seller_fee_basis_points: 0,
+              primary_sale_happened: false,
+              is_mutable: false,
+              edition_nonce: nil,
+              token_standard: nil,
+              collection: nil,
+              uses: nil,
+              token_program_version: "",
+              creators: nil
+  end
 end
