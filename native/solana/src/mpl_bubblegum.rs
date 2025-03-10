@@ -1,5 +1,3 @@
-use crate::signature::KeypairWrapper;
-
 use super::{instruction::InstructionWrapper, pubkey::PubkeyWrapper};
 use mpl_bubblegum::{accounts::TreeConfig, instructions::CreateTreeConfigBuilder};
 use rustler::{NifStruct, ResourceArc};
