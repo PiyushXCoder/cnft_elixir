@@ -1,6 +1,3 @@
 [workspace]
 resolver = "2"
-
-members = [
-  "native/solana",
-]
+members = ["native/solana"]
