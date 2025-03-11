@@ -8,8 +8,8 @@ fn cnft_create_tree_config_instruction(
     merkle_tree: ResourceArc<PubkeyWrapper>,
     payer: ResourceArc<PubkeyWrapper>,
     tree_creator: ResourceArc<PubkeyWrapper>,
-    max_buffer_size: u32,
     max_depth: u32,
+    max_buffer_size: u32,
 ) -> ResourceArc<InstructionWrapper> {
     let instruction = CreateTreeConfigBuilder::new()
         .tree_config(tree_config.pubkey)

@@ -36,8 +36,8 @@ defmodule Solana do
         _merkle_tree,
         _payer,
         _tree_creator,
-        _max_buffer_size,
-        _max_depth
+        _max_depth,
+        _max_buffer_size
       ),
       do: error()
 
