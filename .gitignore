@@ -24,3 +24,4 @@ cnft_elixir-*.tar
 
 # Rust binary artifacts
 /target/
+priv/native
