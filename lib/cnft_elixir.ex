@@ -13,6 +13,7 @@ defmodule Solana do
 
   # Pubkey
   def keypair_to_public_key(_keypair), do: error()
+  def pubkey_from_string(_key), do: error()
 
   # Keypair
   def new_keypair(), do: error()
@@ -60,6 +61,8 @@ defmodule Solana do
         _merkle_tree
       ),
       do: error()
+
+  def tree_config_find_pda(_merkle_tree), do: error()
 
   defmodule Collection do
     defstruct verified: false, key: nil
